@@ -15,13 +15,12 @@ export class ListArtistsComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute, private service: MusicServiceService) { }
 
-	ngOnInit() {
-		this.route.queryParams.subscribe(params => {
-			console.log("Getting data...");
-			this.artists = this.service.getArtists();
-			this.selectedArtist = null;
+	ngOnInit(){
+		this.service.getArtists((artists: Artist[])=>{
+		  this.artists = artists;
+		  console.log("this.artists", this.artists);
 		});
-	}
+	  }
 
 	public onSelectArtist(artist: Artist) {
 		console.log("Selected Artist of " + artist.Name);

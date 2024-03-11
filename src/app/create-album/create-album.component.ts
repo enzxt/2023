@@ -18,12 +18,13 @@ export class CreateAlbumComponent implements OnInit {
 	ngOnInit() { }
 
 	public onSubmit() {
-		const tracks: Track[] = this.parseTracks(this.tracksRaw);
-		this.album.Tracks = tracks;
-		const status = this.service.createAlbum(this.album);
-		console.log('The return from createAlbum() was ' + status);
-		this.wasSubmitted = true;
-	}
+    const tracks: Track[] = this.parseTracks(this.tracksRaw);
+    this.album.Tracks = tracks;
+    this.service.createAlbum(this.album, () => {
+        console.log('Album created successfully.');
+        this.wasSubmitted = true;
+    });
+}
 
 	private parseTracks(rawTracks: string): Track[] {
 		const tracks: Track[] = [];
